@@ -1,5 +1,5 @@
 # CH-1-Minimum_Moves
-Trying to solve the challenge:
+Trying to solve (using c#) the challenge:
 
 You should build a console app where the user enters the square coordinates X and Y as inputs. 
 The program should then find and draw the shortest path to reach the square on an infinite chessboard using the 'Knight' movements.
