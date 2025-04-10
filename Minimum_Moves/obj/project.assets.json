@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/macmini/RiderProjects/CH-1-Minimum_Moves/Minimum_Moves/Minimum_Moves.csproj",
+      "projectUniqueName": "/Users/macmini/RiderProjects/CH:1-Minimum_Moves/Minimum_Moves/Minimum_Moves.csproj",
       "projectName": "Minimum_Moves",
-      "projectPath": "/Users/macmini/RiderProjects/CH-1-Minimum_Moves/Minimum_Moves/Minimum_Moves.csproj",
+      "projectPath": "/Users/macmini/RiderProjects/CH:1-Minimum_Moves/Minimum_Moves/Minimum_Moves.csproj",
       "packagesPath": "/Users/macmini/.nuget/packages/",
-      "outputPath": "/Users/macmini/RiderProjects/CH-1-Minimum_Moves/Minimum_Moves/obj/",
+      "outputPath": "/Users/macmini/RiderProjects/CH:1-Minimum_Moves/Minimum_Moves/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/macmini/.nuget/NuGet/NuGet.Config"
