@@ -1,0 +1,14 @@
+/Users/macmini/RiderProjects/repo/bin/Debug/net9.0/repo
+/Users/macmini/RiderProjects/repo/bin/Debug/net9.0/repo.deps.json
+/Users/macmini/RiderProjects/repo/bin/Debug/net9.0/repo.runtimeconfig.json
+/Users/macmini/RiderProjects/repo/bin/Debug/net9.0/repo.dll
+/Users/macmini/RiderProjects/repo/bin/Debug/net9.0/repo.pdb
+/Users/macmini/RiderProjects/repo/obj/Debug/net9.0/repo.GeneratedMSBuildEditorConfig.editorconfig
+/Users/macmini/RiderProjects/repo/obj/Debug/net9.0/repo.AssemblyInfoInputs.cache
+/Users/macmini/RiderProjects/repo/obj/Debug/net9.0/repo.AssemblyInfo.cs
+/Users/macmini/RiderProjects/repo/obj/Debug/net9.0/repo.csproj.CoreCompileInputs.cache
+/Users/macmini/RiderProjects/repo/obj/Debug/net9.0/repo.dll
+/Users/macmini/RiderProjects/repo/obj/Debug/net9.0/refint/repo.dll
+/Users/macmini/RiderProjects/repo/obj/Debug/net9.0/repo.pdb
+/Users/macmini/RiderProjects/repo/obj/Debug/net9.0/repo.genruntimeconfig.cache
+/Users/macmini/RiderProjects/repo/obj/Debug/net9.0/ref/repo.dll
