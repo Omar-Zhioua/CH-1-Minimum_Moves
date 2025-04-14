@@ -7,3 +7,5 @@ The program should then find and draw the shortest path to reach the square on a
 - The knight initially starts at position (0,0)
 - Clearly the chess board is only infinite on the right and up sides (think of it as "repère orthonormée" with only positive values for X and Y axis)
 - The output might be very big to be displayed in the terminal (it will look scrambled), so for each turn take a screenshot of the path and save it in a local folder.
+
+Note: I registered a visualization to the shortest path in /Documents/ChessboardData for mac users.
