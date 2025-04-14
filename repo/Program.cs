@@ -188,7 +188,11 @@ void RegisterPaths(List<Point?> path,string filePath)
              }
              File.AppendAllText(filePath,"\n");
         }
-        File.AppendAllText(filePath, $"\n--------------\n");
+        File.AppendAllText(filePath, $"\n\n");
+        
+        File.AppendAllText(filePath, $"Move: {moves + 1}");
+        
+        File.AppendAllText(filePath, $"\n\n");
         moves++;
     }
 }
