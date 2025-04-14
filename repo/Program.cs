@@ -127,10 +127,10 @@ void CalculateMinimumMoves()
     }
     Console.WriteLine($"\nMinimum Moves: {fullPath.Count - 1}");
     
-    RegisterOnMac(fullPath);
+    BuildScreenshots(fullPath);
 }
 
-void RegisterOnMac(List<Point?> path)
+void BuildScreenshots(List<Point?> path)
 {
     var directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ChessboardData");
     const string fileName = "moves.txt";
@@ -144,50 +144,51 @@ void RegisterOnMac(List<Point?> path)
         Console.ResetColor();
     }
 
-    File.WriteAllText(filePath, ""); 
+    File.WriteAllText(filePath, "");
 
+    RegisterPaths(path, filePath);
+}
+
+void RegisterPaths(List<Point?> path,string filePath)
+{
     var moves = 0;
-    
-    var visited = new List<Point?>();
-    var startingColumn = 0;
-    var startingRow = 0;
+    var startAxisX = 0;
+    var startAxisY = 7;
+    var visited = new Dictionary<(int,int),int>();
 
-    foreach (var p in path)
+    foreach (var step in path)
     {
-        if (p != null)
+        if (step != null)
         {
-            p.Number = moves;
-            visited.Add(p);
+            visited.Add((step.X, step.Y), moves);
 
-            var rows = startingRow + 8;
-            var cols = startingColumn + 8;
-
-            if (p.X > cols - 1)
+            if (step.Y > startAxisY)
             {
-                cols = p.X + 1;
-                startingColumn = cols - 8;
+                startAxisY = step.Y;
+                startAxisX = step.X - 7;
             }
 
-            if (p.Y > rows - 1)
+            if (step.X > startAxisX + 7)
             {
-                rows = p.Y + 1;
-                startingRow = rows - 8;
-            }
-
-            for (var i = rows - 1; i > startingRow - 1; i--)
-            {
-                for (var j = startingColumn; j < cols; j++)
-                {
-                    var step = visited.FirstOrDefault(v => v != null && v.X == j && v.Y == i);
-                    File.AppendAllText(filePath, step != null ? step.Number.ToString() : ".");
-                    File.AppendAllText(filePath, " ");
-                }
-
-                File.AppendAllText(filePath, "\n");
+                startAxisX = step.X - 7;
+                startAxisY = step.Y;
             }
         }
 
-        File.AppendAllText(filePath, "\n---------------\n");
+        for (var i = startAxisY; i >= startAxisY - 7; i--)
+        {
+             for (var j = startAxisX; j <= startAxisX + 7; j++)
+             {
+                 File.AppendAllText(filePath,
+                     visited.ContainsKey((j, i))
+                         ? $"{visited[(j, i)]}".PadLeft(moves.ToString().Length, ' ')
+                         : $".".PadLeft(moves.ToString().Length, ' '));
+
+                 File.AppendAllText(filePath, $" ");
+             }
+             File.AppendAllText(filePath,"\n");
+        }
+        File.AppendAllText(filePath, $"\n--------------\n");
         moves++;
     }
 }
