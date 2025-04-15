@@ -4,9 +4,9 @@ using Utilities;
 CalculateMinimumMoves();
 return;
 
-List<Point?> GetPath(Point end, Dictionary<Point, Point?> parents)
+List<Point> GetPath(Point end, Dictionary<Point, Point?> parents)
 {
-    List<Point?> path = [];
+    List<Point> path = [];
     var current = end;
 
     while (current != null)
@@ -42,7 +42,7 @@ List<Point> GetMoves(Point point)
     return moves;
 }
 
-List<Point?>? Bfs(Point start, Point end)
+List<Point> Bfs(Point start, Point end)
 {
     var queue = new Queue<Point>();
     // Register the current point and the one that comes before
@@ -68,7 +68,7 @@ List<Point?>? Bfs(Point start, Point end)
     }
 
 
-    return null; 
+    return []; 
 }
 
 int GetMultiplier(int value)
@@ -76,8 +76,7 @@ int GetMultiplier(int value)
     return value switch
     {
         < 0 => -1,
-        > 1 => 1,
-        _ => 0
+        _ => 1
     };
 }
 
@@ -93,8 +92,8 @@ List<Point> GetClosingPath(Point target)
 
         // The direction is the value of GetMultiplier (returns 1, -1 or 0)
         path.Add(Math.Abs(dx) >= Math.Abs(dy)
-            ? new Point((current.X + 2) * GetMultiplier(dx), (current.Y + 1) * GetMultiplier(dy))
-            : new Point((current.X + 1) * GetMultiplier(dx), (current.Y + 2) * GetMultiplier(dy)));
+            ? new Point(current.X + 2 * GetMultiplier(dx), current.Y + 1 * GetMultiplier(dy))
+            : new Point(current.X + 1 * GetMultiplier(dx), current.Y + 2 * GetMultiplier(dy)));
     }
 
     return path;
@@ -116,8 +115,8 @@ void CalculateMinimumMoves()
     var path2 = Bfs(start, end);
 
     // Step 3 : Combine the two paths
-    var fullPath = new List<Point?>(path1);
-    fullPath.AddRange((path2 ?? []).Skip(1));
+    var fullPath = new List<Point>(path1);
+    fullPath.AddRange((path2).Skip(1));
 
     // Step 4 : Showcase results
     foreach (var point in fullPath)
@@ -130,7 +129,7 @@ void CalculateMinimumMoves()
     BuildScreenshots(fullPath);
 }
 
-void BuildScreenshots(List<Point?> path)
+void BuildScreenshots(List<Point> path)
 {
     var directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ChessboardData");
     const string fileName = "moves.txt";
@@ -149,50 +148,34 @@ void BuildScreenshots(List<Point?> path)
     RegisterPaths(path, filePath);
 }
 
-void RegisterPaths(List<Point?> path,string filePath)
+void RegisterPaths(List<Point> path,string filePath)
 {
-    var moves = 0;
-    var startAxisX = 0;
-    var startAxisY = 7;
-    var visited = new Dictionary<(int,int),int>();
-
-    foreach (var step in path)
+    var points = new Dictionary<(int,int),int>();
+    var maxX = 0;
+    var maxY = 0;
+    
+    for (var i = 0 ; i < path.Count ; i++)
     {
-        if (step != null)
+        points.Add((path[i].X, path[i].Y),i);
+        if (path[i].Y > maxY)
         {
-            visited.Add((step.X, step.Y), moves);
-
-            if (step.Y > startAxisY)
-            {
-                startAxisY = step.Y;
-                startAxisX = step.X - 7;
-            }
-
-            if (step.X > startAxisX + 7)
-            {
-                startAxisX = step.X - 7;
-                startAxisY = step.Y;
-            }
+            maxY = path[i].Y;
         }
 
-        for (var i = startAxisY; i >= startAxisY - 7; i--)
+        if (path[i].X > maxX)
         {
-             for (var j = startAxisX; j <= startAxisX + 7; j++)
-             {
-                 File.AppendAllText(filePath,
-                     visited.ContainsKey((j, i))
-                         ? $"{visited[(j, i)]}".PadLeft(moves.ToString().Length, ' ')
-                         : $".".PadLeft(moves.ToString().Length, ' '));
-
-                 File.AppendAllText(filePath, $" ");
-             }
-             File.AppendAllText(filePath,"\n");
+            maxX = path[i].X;
         }
-        File.AppendAllText(filePath, $"\n\n");
-        
-        File.AppendAllText(filePath, $"Move: {moves + 1}");
-        
-        File.AppendAllText(filePath, $"\n\n");
-        moves++;
+    }
+    var max = Math.Max(maxX, maxY);  
+
+    for (var i = maxY; i >= 0; i--)
+    {
+        for (var j = 0; j <= maxX; j++)
+        {
+            File.AppendAllText(filePath, points.ContainsKey((j, i)) ? $"{points[(j, i)]}".PadLeft(max.ToString().Length,' ')
+                : ".".PadLeft(max.ToString().Length,' '));
+        }
+        File.AppendAllText(filePath, "\n");
     }
 }
